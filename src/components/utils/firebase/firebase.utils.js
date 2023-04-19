@@ -22,17 +22,15 @@ export const auth = getAuth()
 export const SignInWithGooglePopup = () => signInWithPopup(auth, provider)
 export const SignInWithGoogleRedirect=()=> signInWithRedirect(auth,provider)
 export const db = getFirestore()
-export const createUserDocumentFromAuth = async (user) => {
+export const createUserDocumentFromAuth = async (user,additionalInfo={}) => {
 
   const userDocRef = doc(db, "users", user.uid)
-
   const userSnapshot = await getDoc(userDocRef)
   if (!userSnapshot.exists()) {
     const { displayName, email } = user
       const createdAt = new Date()
     try {
-      
-      await setDoc(userDocRef, { displayName, email, createdAt })
+      await setDoc(userDocRef, { displayName, email, createdAt ,...additionalInfo})
     }
     catch (e){
 console.log("There was an error : ",e)
