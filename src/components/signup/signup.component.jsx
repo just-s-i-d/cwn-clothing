@@ -28,8 +28,8 @@ const SignUpForm = () => {
         }
         try {
             const {user}=await createUserAuthWithEmailAndPassword(email, password)
-            // await createUserDocumentFromAuth(user,{displayName})
-            console.log(user)
+            await createUserDocumentFromAuth(user,{displayName})
+            
             resetFormFields()
         } catch (error) {
             if (error.code === "auth/email-already-in-use") alert("Email is already in use ")
